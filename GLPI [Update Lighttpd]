@@ -1,4 +1,7 @@
 #!/bin/sh
+####### Criado por OpenSea #######
+### openseatecnologia.github.io ##
+
 echo "Efetue backup antes da atualização, continuar? \
 1 - Sim
 2 - Não"
