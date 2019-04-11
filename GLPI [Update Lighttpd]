@@ -8,6 +8,7 @@ echo "Efetue backup antes da atualização, continuar? \
 read continue
 if [ $continue -eq 1 ]
 then
+cd /tmp
 echo "Informe a versão do GLPI:"
 read GLPIVERSION
 wget https://github.com/glpi-project/glpi/releases/download/$GLPIVERSION/glpi-$GLPIVERSION.tgz
