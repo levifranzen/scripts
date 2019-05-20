@@ -1,4 +1,7 @@
 #!/bin/bash
+### Script para buscar informações de rastreio de arquivos XML em CTEs da Azul e Jadlog apenas ###
+
+
 for cte in xml/*
 do
 export transportadora=$(grep -Po '<xNome>.*</xNome>' $cte | head -n1)
