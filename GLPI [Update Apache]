@@ -15,14 +15,13 @@ read GLPIVERSION
 wget https://github.com/glpi-project/glpi/releases/download/$GLPIVERSION/glpi-$GLPIVERSION.tgz
 tar zxvf glpi-$GLPIVERSION.tgz
 rm glpi-$GLPIVERSION.tgz
-cp -R glpi/* /usr/share/webapps/glpi/
+cp -R glpi/* /var/www/html/
 ### Adequação de permissões e finalização ###
-chown -R lighttpd:lighttpd /usr/share/webapps/glpi
-chown -R lighttpd:lighttpd /var/log/lighttpd
-chmod -R 755 /usr/share/webapps/glpi/
-rm /usr/share/webapps/glpi/install/install.php
-service lighttpd restart
-service mariadb restart
+chown -R www-data:www-data /var/www/html/
+chmod -R 755 /var/www/html/
+rm /var/www/html/install/install.php
+systemctl restart apache
+systemctl restart mysql
 else
 echo "Efetue backup e rode novamente"
 fi
