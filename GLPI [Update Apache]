@@ -1,0 +1,28 @@
+  
+#!/bin/sh
+####### Criado por OpenSea #######
+### openseatecnologia.github.io ##
+
+echo "Efetue backup antes da atualização, continuar? \
+1 - Sim
+2 - Não"
+read continue
+if [ $continue -eq 1 ]
+then
+cd /tmp
+echo "Informe a nova versão do GLPI:"
+read GLPIVERSION
+wget https://github.com/glpi-project/glpi/releases/download/$GLPIVERSION/glpi-$GLPIVERSION.tgz
+tar zxvf glpi-$GLPIVERSION.tgz
+rm glpi-$GLPIVERSION.tgz
+cp -R glpi/* /usr/share/webapps/glpi/
+### Adequação de permissões e finalização ###
+chown -R lighttpd:lighttpd /usr/share/webapps/glpi
+chown -R lighttpd:lighttpd /var/log/lighttpd
+chmod -R 755 /usr/share/webapps/glpi/
+rm /usr/share/webapps/glpi/install/install.php
+service lighttpd restart
+service mariadb restart
+else
+echo "Efetue backup e rode novamente"
+fi
