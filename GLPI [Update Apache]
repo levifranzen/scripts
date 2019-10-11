@@ -20,7 +20,7 @@ cp -R glpi/* /var/www/html/
 chown -R www-data:www-data /var/www/html/
 chmod -R 755 /var/www/html/
 rm /var/www/html/install/install.php
-systemctl restart apache
+systemctl restart apache2
 systemctl restart mysql
 else
 echo "Efetue backup e rode novamente"
