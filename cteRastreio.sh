@@ -1,10 +1,12 @@
 #!/bin/bash
+
+### Script para obter o rastreio dos CTEs de pedidos do E-Commerce e enviar para plataforma via API ###
 find /mnt/rastreio/recebidos/ -cmin -1440 -name '*09296295001646*.xml' -exec cp {} /mnt/rastreio/xml/ \;
 find /mnt/rastreio/recebidos/ -cmin -1440 -name '*04884082000305*.xml' -exec cp {} /mnt/rastreio/xml/ \;
 cd /mnt/rastreio/xml
 for cte in *.xml
 do
-export token="slithz0c24b5g53bg"
+export token="INSERT YOUR TOKEN HERE"
 export transportadora=($(grep -oP '(?<=CNPJ>)[^<]+' "$cte"))
 export chave=($(grep -oP '(?<=chave>)[^<]+' "$cte"))
 export nfe=${chave:28:6}
