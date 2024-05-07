@@ -16,17 +16,20 @@ Write-Host "---"
 
 # Define the Azure Key Vault
 Function Choose-KeyVault {
-    $choice=Read-Host "
-1: keyVault-Dev
-2: keyVault-Hml
-3: keyVault-Prod
-Choose the environment to create the secret"
-    Switch ($choice){
-        1 {$choice_out="keyVault-Dev"}
-        2 {$choice_out="keyVault-Hml"}
-        3 {$choice_out="keyVault-Prod"}
+    $keyVaults = Get-AzKeyVault
+    $index = 1
+
+    foreach ($kv in $keyVaults) {
+        Write-Host "$index. $($kv.VaultName)"
+        $index++
     }
-    return $choice_out
+
+    $choice = Read-Host "Choose the environment"
+    $choiceResult = $keyVaults[$choice - 1]
+    $keyVaultResult = $choiceResult.VaultName
+
+    Write-Host "You've selected $keyVaultResult"
+    return $keyVaultResult
 }
 
 # Find secret in all Key Vaults
@@ -50,7 +53,7 @@ Function Check-Secret-Detailed {
  $secretResult = Get-AzKeyVaultSecret -VaultName $keyVaultResult -Name $secretName
  $secretValueText = Get-AzKeyVaultSecret -VaultName $keyVaultResult -Name $secretName -AsPlainText
   if (!$secretResult) {
-    Write-Host "Secret '$secretName' DOES NOT exists in Key Vault '$keyVaultName'"
+    Write-Host "Secret '$secretName' DOES NOT exists in Key Vault '$keyVaultResult'"
     } else {
      echo $secretResult, "Value        : $secretValueText";echo " "
     }
