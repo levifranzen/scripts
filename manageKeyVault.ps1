@@ -17,14 +17,14 @@ Write-Host "---"
 # Define the Azure Key Vault
 Function Choose-KeyVault {
     $choice=Read-Host "
-1: keyVaultMais-Dev
-2: keyVaultMais-Hml
-3: keyVaultMais-Prod
+1: keyVault-Dev
+2: keyVault-Hml
+3: keyVault-Prod
 Choose the environment to create the secret"
     Switch ($choice){
-        1 {$choice_out="keyVaultMais-Dev"}
-        2 {$choice_out="keyVaultMais-Hml"}
-        3 {$choice_out="keyVaultMais-Prod"}
+        1 {$choice_out="keyVault-Dev"}
+        2 {$choice_out="keyVault-Hml"}
+        3 {$choice_out="keyVault-Prod"}
     }
     return $choice_out
 }
