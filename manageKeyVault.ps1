@@ -19,8 +19,8 @@ Function Choose-KeyVault {
     $keyVaults = Get-AzKeyVault
     $index = 1
 
-    foreach ($kv in $keyVaults) {
-        Write-Host "$index. $($kv.VaultName)"
+    foreach ($keyVault in $keyVaults) {
+        Write-Host "$index. $($keyVault.VaultName)"
         $index++
     }
 
