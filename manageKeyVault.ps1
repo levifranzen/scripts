@@ -24,7 +24,7 @@ Function Choose-KeyVault {
         $index++
     }
 
-    $choice = Read-Host "Choose the environment"
+    $choice = Read-Host "Choose the Key Vault"
     $choiceResult = $keyVaults[$choice - 1]
     $keyVaultResult = $choiceResult.VaultName
 
