@@ -1,5 +1,5 @@
 ### Powershell script to manage Azure Key vault secrets ###
-# KB page to be displayed in line 59:
+# KB page to be displayed in line 65:
 $KBurl = "https://example.com/kb"
 
 Write-Host "~~ Powershell script to manage secrets from Azure Key Vault ~~"
