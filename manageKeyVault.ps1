@@ -81,7 +81,7 @@ keyVault,secretName,secretValue
 keyVault-Dev,secret1,value1
 keyVault-Hml,secret2,value2
 keyVault-Prod,secret3,value3
-"
+CSV Path"
 
 # Read the CSV file
  $secrets = Import-Csv -Path $csvPath
@@ -133,7 +133,7 @@ keyVault,secretName,secretValue
 keyVault-Dev,secret1,value1
 keyVault-Hml,secret2,value2
 keyVault-Prod,secret3,value3
-"
+CSV Path"
 
 # Read the CSV file
  $secrets = Import-Csv -Path $csvPath
