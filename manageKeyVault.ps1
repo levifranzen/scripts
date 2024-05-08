@@ -103,19 +103,6 @@ CSV Path"
  }
 }
 
-Function Delete-Secret {
- # Define the secret name you want to delete
- $secretNameToDelete = Read-Host -Prompt "Inform the secret name to be deleted"
-
- # Remove the specified secret from the Key Vault
- $continue = Read-Host -Prompt "You're going to delete '$secretNameToDelete' from the vault '$keyVaultResult', continue? [y/n]"
- if ($continue -eq "y") {
-  Remove-AzKeyVaultSecret -VaultName $keyVaultResult -Name $secretNameToDelete 
- } else {
-  Write-Host "Nothing was deleted" 
- }
-}
-
 Function Update-Secret {
  # Define the secret name and value
  $secretName = Read-Host -Prompt "Inform the secret name to be updated"
@@ -148,15 +135,23 @@ CSV Path"
     $keyVault = $secret.keyVault
     $secretName = $secret.secretName
     $secretValue = $secret.secretValue
-    $secretResult = Get-AzKeyVaultSecret -VaultName $keyVault -Name $secretName
-    if ($secretResult.Name -eq "$secretName") {
-     Write-Host "Secret already exists, nothing was created";echo $secretResult.Name "in" $keyVault
-    } else {
-     Set-AzKeyVaultSecret -VaultName $keyVault -Name $secretName -SecretValue (ConvertTo-SecureString -String $secretValue -AsPlainText -Force)
-    }
+    Set-AzKeyVaultSecret -VaultName $keyVault -Name $secretName -SecretValue (ConvertTo-SecureString -String $secretValue -AsPlainText -Force)
    }
+}
+
+Function Delete-Secret {
+ # Define the secret name you want to delete
+ $secretNameToDelete = Read-Host -Prompt "Inform the secret name to be deleted"
+
+ # Remove the specified secret from the Key Vault
+ $continue = Read-Host -Prompt "You're going to delete '$secretNameToDelete' from the vault '$keyVaultResult', continue? [y/n]"
+ if ($continue -eq "y" -and $secretNameToDelete -notmatch "[*]") {
+  Remove-AzKeyVaultSecret -VaultName $keyVaultResult -Name $secretNameToDelete -Force
+  Write-Host "Secret '$secretNameToDelete' DELETED from Key Vault '$keyVaultResult'"
+ } elseif ($secretNameToDelete -match "[*]") {
+  Write-Host "Error: Wildcards are not allowed in secret names."
  } else {
-  Write-Host "Nothing was updated" 
+  Write-Host "Nothing was deleted" 
  }
 }
 
